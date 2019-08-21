@@ -1,0 +1,666 @@
+{
+  "version" : "1.5.1",
+  "seed" : "d3d845771abb807bbb35cc5f988379d7",
+  "options" : {
+    "audit" : {
+      "parameter_values" : true,
+      "exclude_vector_patterns" : [],
+      "include_vector_patterns" : [],
+      "link_templates" : [],
+      "links" : true,
+      "forms" : true,
+      "cookies" : true,
+      "jsons" : true,
+      "xmls" : true,
+      "ui_forms" : true,
+      "ui_inputs" : true
+    },
+    "browser_cluster" : {
+      "local_storage" : {},
+      "wait_for_elements" : {},
+      "pool_size" : 6,
+      "job_timeout" : 10,
+      "worker_time_to_live" : 100,
+      "ignore_images" : false,
+      "screen_width" : 1600,
+      "screen_height" : 1200
+    },
+    "datastore" : {
+      "token" : "0d18d3bd290a3662f4dd6e75fab1fef9"
+    },
+    "http" : {
+      "user_agent" : "Arachni/v1.5.1",
+      "request_timeout" : 10000,
+      "request_redirect_limit" : 5,
+      "request_concurrency" : 20,
+      "request_queue_size" : 100,
+      "request_headers" : {},
+      "response_max_size" : 500000,
+      "cookies" : {},
+      "authentication_type" : "auto"
+    },
+    "input" : {
+      "values" : {
+        "name" : "arachni_name",
+        "user" : "arachni_user",
+        "usr" : "arachni_user",
+        "pass" : "5543!%arachni_secret",
+        "txt" : "arachni_text",
+        "num" : "132",
+        "amount" : "100",
+        "mail" : "arachni@email.gr",
+        "account" : "12",
+        "id" : "1"
+      },
+      "default_values" : {
+        "name" : "arachni_name",
+        "user" : "arachni_user",
+        "usr" : "arachni_user",
+        "pass" : "5543!%arachni_secret",
+        "txt" : "arachni_text",
+        "num" : "132",
+        "amount" : "100",
+        "mail" : "arachni@email.gr",
+        "account" : "12",
+        "id" : "1"
+      },
+      "without_defaults" : true,
+      "force" : false
+    },
+    "scope" : {
+      "redundant_path_patterns" : {},
+      "dom_depth_limit" : 5,
+      "exclude_file_extensions" : [
+        "[]"
+      ],
+      "exclude_path_patterns" : [],
+      "exclude_content_patterns" : [],
+      "include_path_patterns" : [],
+      "restrict_paths" : [],
+      "extend_paths" : [],
+      "url_rewrites" : {}
+    },
+    "session" : {},
+    "checks" : [
+      "allowed_methods",
+      "backdoors",
+      "backup_directories",
+      "backup_files",
+      "captcha",
+      "code_injection",
+      "code_injection_php_input_wrapper",
+      "code_injection_timing",
+      "common_admin_interfaces",
+      "common_directories",
+      "common_files",
+      "cookie_set_for_parent_domain",
+      "credit_card",
+      "csrf",
+      "cvs_svn_users",
+      "directory_listing",
+      "emails",
+      "file_inclusion",
+      "form_upload",
+      "hsts",
+      "htaccess_limit",
+      "html_objects",
+      "http_only_cookies",
+      "http_put",
+      "insecure_client_access_policy",
+      "insecure_cookies",
+      "insecure_cors_policy",
+      "insecure_cross_domain_policy_access",
+      "insecure_cross_domain_policy_headers",
+      "interesting_responses",
+      "ldap_injection",
+      "localstart_asp",
+      "mixed_resource",
+      "no_sql_injection",
+      "no_sql_injection_differential",
+      "origin_spoof_access_restriction_bypass",
+      "os_cmd_injection",
+      "os_cmd_injection_timing",
+      "password_autocomplete",
+      "path_traversal",
+      "private_ip",
+      "response_splitting",
+      "rfi",
+      "session_fixation",
+      "source_code_disclosure",
+      "sql_injection",
+      "sql_injection_differential",
+      "sql_injection_timing",
+      "ssn",
+      "trainer",
+      "unencrypted_password_forms",
+      "unvalidated_redirect",
+      "unvalidated_redirect_dom",
+      "webdav",
+      "x_frame_options",
+      "xpath_injection",
+      "xss",
+      "xss_dom",
+      "xss_dom_script_context",
+      "xss_event",
+      "xss_path",
+      "xss_script_context",
+      "xss_tag",
+      "xst",
+      "xxe"
+    ],
+    "platforms" : [],
+    "plugins" : {
+      "autothrottle" : {},
+      "discovery" : {},
+      "healthmap" : {},
+      "timing_attacks" : {},
+      "uniformity" : {}
+    },
+    "no_fingerprinting" : false,
+    "authorized_by" : null,
+    "url" : "http://dev.example.com/"
+  },
+  "sitemap" : {
+    "http://dev.example.com/" : 403,
+    "http://dev.example.com/noindex/css/bootstrap.min.css" : 200,
+    "http://dev.example.com/noindex/css/open-sans.css" : 200
+  },
+  "start_datetime" : "2019-08-21 14:29:10 -0400",
+  "finish_datetime" : "2019-08-21 14:29:56 -0400",
+  "delta_time" : "00:00:46",
+  "issues" : [
+    {
+      "name" : "HTTP TRACE",
+      "description" : "\nThe `TRACE` HTTP method allows a client so send a request to the server, and\nhave the same request then send back in the server's response. This allows the\nclient to determine if the server is receiving the request as expected or if\nspecific parts of the request are not arriving as expected.\nFor example incorrect encoding or a load balancer has filtered or changed a value.\nOn many default installations the `TRACE` method is still enabled.\n\nWhile not vulnerable by itself, it does provide a method for cyber-criminals to\nbypass the `HTTPOnly` cookie flag, and therefore could allow a XSS attack to\nsuccessfully access a session token.\n\nArachni has discovered that the affected page permits the HTTP `TRACE` method.\n",
+      "references" : {
+        "CAPEC" : "http://capec.mitre.org/data/definitions/107.html",
+        "OWASP" : "http://www.owasp.org/index.php/Cross_Site_Tracing"
+      },
+      "tags" : [
+        "xst",
+        "methods",
+        "trace",
+        "server"
+      ],
+      "severity" : "medium",
+      "check" : {
+        "name" : "XST",
+        "description" : "Sends an HTTP TRACE request and checks if it succeeded.",
+        "elements" : [
+          "server"
+        ],
+        "author" : "Tasos \"Zapotek\" Laskos <tasos.laskos@arachni-scanner.com>",
+        "version" : "0.1.8",
+        "shortname" : "xst"
+      },
+      "vector" : {
+        "class" : "Arachni::Element::Server",
+        "type" : "server",
+        "url" : "http://dev.example.com/",
+        "affected_input_name" : null
+      },
+      "proof" : "HTTP/1.1 200 OK",
+      "referring_page" : {
+        "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\"><html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n\t\t<title>Apache HTTP Server Test Page powered by CentOS</title>\n\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n\n    <!-- Bootstrap -->\n    <link href=\"/noindex/css/bootstrap.min.css\" rel=\"stylesheet\">\n    <link rel=\"stylesheet\" href=\"noindex/css/open-sans.css\" type=\"text/css\" />\n\n<style type=\"text/css\"><!--\t\t \n\nbody {\n  font-family: \"Open Sans\", Helvetica, sans-serif;\n  font-weight: 100;\n  color: #ccc;\n  background: rgba(10, 24, 55, 1);\n  font-size: 16px;\n}\n\nh2, h3, h4 {\n  font-weight: 200;\n}\n\nh2 {\n  font-size: 28px;\n}\n\n.jumbotron {\n  margin-bottom: 0;\n  color: #333;\n  background: rgb(212,212,221); /* Old browsers */\n  background: radial-gradient(ellipse at center top, rgba(255,255,255,1) 0%,rgba(174,174,183,1) 100%); /* W3C */\n}\n\n.jumbotron h1 {\n  font-size: 128px;\n  font-weight: 700;\n  color: white;\n  text-shadow: 0px 2px 0px #abc,\n               0px 4px 10px rgba(0,0,0,0.15),\n               0px 5px 2px rgba(0,0,0,0.1),\n               0px 6px 30px rgba(0,0,0,0.1);\n}\n\n.jumbotron p {\n  font-size: 28px;\n  font-weight: 100;\n}\n\n.main {\n   background: white;\n   color: #234;\n   border-top: 1px solid rgba(0,0,0,0.12);\n   padding-top: 30px;\n   padding-bottom: 40px;\n}\n\n.footer {\n   border-top: 1px solid rgba(255,255,255,0.2);\n   padding-top: 30px;\n}\n\n    --></style>\n</head>\n<body>\n  <div class=\"jumbotron text-center\">\n    <div class=\"container\">\n   \t  <h1>Testing 123..</h1>\n  \t\t<p class=\"lead\">This page is used to test the proper operation of the <a href=\"http://apache.org\">Apache HTTP server</a> after it has been installed. If you can read this page it means that this site is working properly. This server is powered by <a href=\"http://centos.org\">CentOS</a>.</p>\n\t\t</div>\n  </div>\n  <div class=\"main\">\n    <div class=\"container\">\n       <div class=\"row\">\n  \t\t\t<div class=\"col-sm-6\">\n    \t\t\t<h2>Just visiting?</h2>\n\t\t\t  \t\t<p class=\"lead\">The website you just visited is either experiencing problems or is undergoing routine maintenance.</p>\n  \t\t\t\t\t<p>If you would like to let the administrators of this website know that you've seen this page instead of the page you expected, you should send them e-mail. In general, mail sent to the name \"webmaster\" and directed to the website's domain should reach the appropriate person.</p>\n  \t\t\t\t\t<p>For example, if you experienced problems while visiting www.example.com, you should send e-mail to \"webmaster@example.com\".</p>\n\t  \t\t\t</div>\n  \t\t\t\t<div class=\"col-sm-6\">\n\t  \t\t\t\t<h2>Are you the Administrator?</h2>\n\t\t  \t\t\t<p>You should add your website content to the directory <tt>/var/www/html/</tt>.</p>\n\t\t  \t\t\t<p>To prevent this page from ever being used, follow the instructions in the file <tt>/etc/httpd/conf.d/welcome.conf</tt>.</p>\n\n\t  \t\t\t\t<h2>Promoting Apache and CentOS</h2>\n\t\t\t  \t\t<p>You are free to use the images below on Apache and CentOS Linux powered HTTP servers.  Thanks for using Apache and CentOS!</p>\n\t\t\t\t  \t<p><a href=\"http://httpd.apache.org/\"><img src=\"images/apache_pb.gif\" alt=\"[ Powered by Apache ]\"></a> <a href=\"http://www.centos.org/\"><img src=\"images/poweredby.png\" alt=\"[ Powered by CentOS Linux ]\" height=\"31\" width=\"88\"></a></p>\n  \t\t\t\t</div>\n\t  \t\t</div>\n\t    </div>\n\t\t</div>\n\t</div>\n\t  <div class=\"footer\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-6\">          \n            <h2>Important note:</h2>\n            <p class=\"lead\">The CentOS Project has nothing to do with this website or its content,\n            it just provides the software that makes the website run.</p>\n            \n            <p>If you have issues with the content of this site, contact the owner of the domain, not the CentOS project. \n            Unless you intended to visit CentOS.org, the CentOS Project does not have anything to do with this website,\n            the content or the lack of it.</p>\n            <p>For example, if this website is www.example.com, you would find the owner of the example.com domain at the following WHOIS server:</p>\n            <p><a href=\"http://www.internic.net/whois.html\">http://www.internic.net/whois.html</a></p>\n          </div>\n          <div class=\"col-sm-6\">\n            <h2>The CentOS Project</h2>\n            <p>The CentOS Linux distribution is a stable, predictable, manageable and reproduceable platform derived from \n               the sources of Red Hat Enterprise Linux (RHEL).<p>\n            \n            <p>Additionally to being a popular choice for web hosting, CentOS also provides a rich platform for open source communities to build upon. For more information\n               please visit the <a href=\"http://www.centos.org/\">CentOS website</a>.</p>\n          </div>\n        </div>\n\t\t  </div>\n    </div>\n  </div>\n</body></html>\n",
+        "dom" : {
+          "url" : "http://dev.example.com/",
+          "transitions" : [],
+          "cookies" : [],
+          "digest" : null,
+          "data_flow_sinks" : [],
+          "execution_flow_sinks" : []
+        }
+      },
+      "page" : {
+        "body" : "",
+        "dom" : {
+          "url" : "http://dev.example.com/",
+          "transitions" : [],
+          "cookies" : [],
+          "digest" : null,
+          "data_flow_sinks" : [],
+          "execution_flow_sinks" : []
+        }
+      },
+      "remarks" : {},
+      "trusted" : true,
+      "digest" : 319885721,
+      "remedy_guidance" : "\nThe HTTP `TRACE` method is normally not required within production sites and\nshould therefore be disabled.\n\nDepending on the function being performed by the web application, the risk\nlevel can start low and increase as more functionality is implemented.\n\nThe remediation is typically a very simple configuration change and in most cases\nwill not have any negative impact on the server or application.\n",
+      "cwe" : 693,
+      "cwe_url" : "http://cwe.mitre.org/data/definitions/693.html",
+      "response" : {
+        "headers" : {
+          "Date" : "Wed, 21 Aug 2019 18:29:22 GMT",
+          "Server" : "Apache/2.4.6 (CentOS)",
+          "Transfer-Encoding" : "chunked",
+          "Content-Type" : "message/http"
+        },
+        "url" : "http://dev.example.com/",
+        "code" : 200,
+        "ip_address" : "67.205.175.143",
+        "headers_string" : "HTTP/1.1 200 OK\r\nDate: Wed, 21 Aug 2019 18:29:22 GMT\r\nServer: Apache/2.4.6 (CentOS)\r\nTransfer-Encoding: chunked\r\nContent-Type: message/http\r\n\r\n",
+        "body" : "",
+        "time" : 2.406,
+        "app_time" : 2.343,
+        "total_time" : 2.406,
+        "return_code" : "ok",
+        "return_message" : "No error",
+        "status_line" : "HTTP/1.1 200 OK"
+      },
+      "request" : {
+        "url" : "http://dev.example.com/",
+        "parameters" : {},
+        "headers" : {
+          "Accept" : "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "User-Agent" : "Arachni/v1.5.1",
+          "Accept-Language" : "en-US,en;q=0.8,he;q=0.6",
+          "X-Arachni-Scan-Seed" : "d3d845771abb807bbb35cc5f988379d7"
+        },
+        "headers_string" : "TRACE / HTTP/1.1\r\nHost: dev.example.com\r\nAccept-Encoding: gzip, deflate\r\nUser-Agent: Arachni/v1.5.1\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.8,he;q=0.6\r\nX-Arachni-Scan-Seed: d3d845771abb807bbb35cc5f988379d7\r\n\r\n",
+        "effective_body" : null,
+        "body" : null,
+        "method" : "trace"
+      }
+    },
+    {
+      "name" : "Interesting response",
+      "description" : "\nThe server responded with a non 200 (OK) nor 404 (Not Found) status code.\nThis is a non-issue, however exotic HTTP response status codes can provide useful\ninsights into the behavior of the web application and assist with the penetration test.\n",
+      "references" : {
+        "w3.org" : "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html"
+      },
+      "tags" : [
+        "interesting",
+        "response",
+        "server"
+      ],
+      "severity" : "informational",
+      "check" : {
+        "name" : "Interesting responses",
+        "description" : "Logs all non 200 (OK) server responses.",
+        "elements" : [
+          "server"
+        ],
+        "author" : "Tasos \"Zapotek\" Laskos <tasos.laskos@arachni-scanner.com>",
+        "version" : "0.2.1",
+        "max_issues" : 25,
+        "shortname" : "interesting_responses"
+      },
+      "vector" : {
+        "class" : "Arachni::Element::Server",
+        "type" : "server",
+        "url" : "http://dev.example.com/Arachni-d3d845771abb807bbb35cc5f988379d7",
+        "affected_input_name" : null
+      },
+      "proof" : "HTTP/1.1 100 Continue",
+      "referring_page" : {
+        "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\"><html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n\t\t<title>Apache HTTP Server Test Page powered by CentOS</title>\n\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n\n    <!-- Bootstrap -->\n    <link href=\"/noindex/css/bootstrap.min.css\" rel=\"stylesheet\">\n    <link rel=\"stylesheet\" href=\"noindex/css/open-sans.css\" type=\"text/css\" />\n\n<style type=\"text/css\"><!--\t\t \n\nbody {\n  font-family: \"Open Sans\", Helvetica, sans-serif;\n  font-weight: 100;\n  color: #ccc;\n  background: rgba(10, 24, 55, 1);\n  font-size: 16px;\n}\n\nh2, h3, h4 {\n  font-weight: 200;\n}\n\nh2 {\n  font-size: 28px;\n}\n\n.jumbotron {\n  margin-bottom: 0;\n  color: #333;\n  background: rgb(212,212,221); /* Old browsers */\n  background: radial-gradient(ellipse at center top, rgba(255,255,255,1) 0%,rgba(174,174,183,1) 100%); /* W3C */\n}\n\n.jumbotron h1 {\n  font-size: 128px;\n  font-weight: 700;\n  color: white;\n  text-shadow: 0px 2px 0px #abc,\n               0px 4px 10px rgba(0,0,0,0.15),\n               0px 5px 2px rgba(0,0,0,0.1),\n               0px 6px 30px rgba(0,0,0,0.1);\n}\n\n.jumbotron p {\n  font-size: 28px;\n  font-weight: 100;\n}\n\n.main {\n   background: white;\n   color: #234;\n   border-top: 1px solid rgba(0,0,0,0.12);\n   padding-top: 30px;\n   padding-bottom: 40px;\n}\n\n.footer {\n   border-top: 1px solid rgba(255,255,255,0.2);\n   padding-top: 30px;\n}\n\n    --></style>\n</head>\n<body>\n  <div class=\"jumbotron text-center\">\n    <div class=\"container\">\n   \t  <h1>Testing 123..</h1>\n  \t\t<p class=\"lead\">This page is used to test the proper operation of the <a href=\"http://apache.org\">Apache HTTP server</a> after it has been installed. If you can read this page it means that this site is working properly. This server is powered by <a href=\"http://centos.org\">CentOS</a>.</p>\n\t\t</div>\n  </div>\n  <div class=\"main\">\n    <div class=\"container\">\n       <div class=\"row\">\n  \t\t\t<div class=\"col-sm-6\">\n    \t\t\t<h2>Just visiting?</h2>\n\t\t\t  \t\t<p class=\"lead\">The website you just visited is either experiencing problems or is undergoing routine maintenance.</p>\n  \t\t\t\t\t<p>If you would like to let the administrators of this website know that you've seen this page instead of the page you expected, you should send them e-mail. In general, mail sent to the name \"webmaster\" and directed to the website's domain should reach the appropriate person.</p>\n  \t\t\t\t\t<p>For example, if you experienced problems while visiting www.example.com, you should send e-mail to \"webmaster@example.com\".</p>\n\t  \t\t\t</div>\n  \t\t\t\t<div class=\"col-sm-6\">\n\t  \t\t\t\t<h2>Are you the Administrator?</h2>\n\t\t  \t\t\t<p>You should add your website content to the directory <tt>/var/www/html/</tt>.</p>\n\t\t  \t\t\t<p>To prevent this page from ever being used, follow the instructions in the file <tt>/etc/httpd/conf.d/welcome.conf</tt>.</p>\n\n\t  \t\t\t\t<h2>Promoting Apache and CentOS</h2>\n\t\t\t  \t\t<p>You are free to use the images below on Apache and CentOS Linux powered HTTP servers.  Thanks for using Apache and CentOS!</p>\n\t\t\t\t  \t<p><a href=\"http://httpd.apache.org/\"><img src=\"images/apache_pb.gif\" alt=\"[ Powered by Apache ]\"></a> <a href=\"http://www.centos.org/\"><img src=\"images/poweredby.png\" alt=\"[ Powered by CentOS Linux ]\" height=\"31\" width=\"88\"></a></p>\n  \t\t\t\t</div>\n\t  \t\t</div>\n\t    </div>\n\t\t</div>\n\t</div>\n\t  <div class=\"footer\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-6\">          \n            <h2>Important note:</h2>\n            <p class=\"lead\">The CentOS Project has nothing to do with this website or its content,\n            it just provides the software that makes the website run.</p>\n            \n            <p>If you have issues with the content of this site, contact the owner of the domain, not the CentOS project. \n            Unless you intended to visit CentOS.org, the CentOS Project does not have anything to do with this website,\n            the content or the lack of it.</p>\n            <p>For example, if this website is www.example.com, you would find the owner of the example.com domain at the following WHOIS server:</p>\n            <p><a href=\"http://www.internic.net/whois.html\">http://www.internic.net/whois.html</a></p>\n          </div>\n          <div class=\"col-sm-6\">\n            <h2>The CentOS Project</h2>\n            <p>The CentOS Linux distribution is a stable, predictable, manageable and reproduceable platform derived from \n               the sources of Red Hat Enterprise Linux (RHEL).<p>\n            \n            <p>Additionally to being a popular choice for web hosting, CentOS also provides a rich platform for open source communities to build upon. For more information\n               please visit the <a href=\"http://www.centos.org/\">CentOS website</a>.</p>\n          </div>\n        </div>\n\t\t  </div>\n    </div>\n  </div>\n</body></html>\n",
+        "dom" : {
+          "url" : "http://dev.example.com/",
+          "transitions" : [],
+          "cookies" : [],
+          "digest" : null,
+          "data_flow_sinks" : [],
+          "execution_flow_sinks" : []
+        }
+      },
+      "page" : {
+        "body" : "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>405 Method Not Allowed</title>\n</head><body>\n<h1>Method Not Allowed</h1>\n<p>The requested method PUT is not allowed for the URL /Arachni-d3d845771abb807bbb35cc5f988379d7.</p>\n</body></html>\n",
+        "dom" : {
+          "url" : "http://dev.example.com/Arachni-d3d845771abb807bbb35cc5f988379d7",
+          "transitions" : [],
+          "cookies" : [],
+          "digest" : null,
+          "data_flow_sinks" : [],
+          "execution_flow_sinks" : []
+        }
+      },
+      "remarks" : {},
+      "trusted" : true,
+      "digest" : 2659344732,
+      "response" : {
+        "headers" : {
+          "Date" : "Wed, 21 Aug 2019 18:29:23 GMT",
+          "Server" : "Apache/2.4.6 (CentOS)",
+          "X-Frame-Options" : "SAMEORIGIN",
+          "Allow" : "OPTIONS,GET,HEAD,POST,TRACE",
+          "Content-Length" : "261",
+          "Content-Type" : "text/html; charset=iso-8859-1"
+        },
+        "url" : "http://dev.example.com/Arachni-d3d845771abb807bbb35cc5f988379d7",
+        "code" : 405,
+        "ip_address" : "67.205.175.143",
+        "headers_string" : "HTTP/1.1 100 Continue\r\n\r\nHTTP/1.1 405 Method Not Allowed\r\nDate: Wed, 21 Aug 2019 18:29:23 GMT\r\nServer: Apache/2.4.6 (CentOS)\r\nX-Frame-Options: SAMEORIGIN\r\nAllow: OPTIONS,GET,HEAD,POST,TRACE\r\nContent-Length: 261\r\nContent-Type: text/html; charset=iso-8859-1\r\n\r\n",
+        "body" : "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>405 Method Not Allowed</title>\n</head><body>\n<h1>Method Not Allowed</h1>\n<p>The requested method PUT is not allowed for the URL /Arachni-d3d845771abb807bbb35cc5f988379d7.</p>\n</body></html>\n",
+        "time" : 1.125,
+        "app_time" : 1.0,
+        "total_time" : 1.125,
+        "return_code" : "ok",
+        "return_message" : "No error",
+        "status_line" : "HTTP/1.1 100 Continue"
+      },
+      "request" : {
+        "url" : "http://dev.example.com/Arachni-d3d845771abb807bbb35cc5f988379d7",
+        "parameters" : {},
+        "headers" : {
+          "Accept" : "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "User-Agent" : "Arachni/v1.5.1",
+          "Accept-Language" : "en-US,en;q=0.8,he;q=0.6",
+          "X-Arachni-Scan-Seed" : "d3d845771abb807bbb35cc5f988379d7"
+        },
+        "headers_string" : "PUT /Arachni-d3d845771abb807bbb35cc5f988379d7 HTTP/1.1\r\nHost: dev.example.com\r\nAccept-Encoding: gzip, deflate\r\nUser-Agent: Arachni/v1.5.1\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.8,he;q=0.6\r\nX-Arachni-Scan-Seed: d3d845771abb807bbb35cc5f988379d7\r\nContent-Length: 55\r\nExpect: 100-continue\r\n\r\n",
+        "effective_body" : "Created by Arachni. PUTd3d845771abb807bbb35cc5f988379d7",
+        "body" : "Created by Arachni. PUTd3d845771abb807bbb35cc5f988379d7",
+        "method" : "put"
+      }
+    },
+    {
+      "name" : "Interesting response",
+      "description" : "\nThe server responded with a non 200 (OK) nor 404 (Not Found) status code.\nThis is a non-issue, however exotic HTTP response status codes can provide useful\ninsights into the behavior of the web application and assist with the penetration test.\n",
+      "references" : {
+        "w3.org" : "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html"
+      },
+      "tags" : [
+        "interesting",
+        "response",
+        "server"
+      ],
+      "severity" : "informational",
+      "check" : {
+        "name" : "Interesting responses",
+        "description" : "Logs all non 200 (OK) server responses.",
+        "elements" : [
+          "server"
+        ],
+        "author" : "Tasos \"Zapotek\" Laskos <tasos.laskos@arachni-scanner.com>",
+        "version" : "0.2.1",
+        "max_issues" : 25,
+        "shortname" : "interesting_responses"
+      },
+      "vector" : {
+        "class" : "Arachni::Element::Server",
+        "type" : "server",
+        "url" : "http://dev.example.com/noindex/css/Arachni-d3d845771abb807bbb35cc5f988379d7",
+        "affected_input_name" : null
+      },
+      "proof" : "HTTP/1.1 100 Continue",
+      "referring_page" : {
+        "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\"><html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n\t\t<title>Apache HTTP Server Test Page powered by CentOS</title>\n\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n\n    <!-- Bootstrap -->\n    <link href=\"/noindex/css/bootstrap.min.css\" rel=\"stylesheet\">\n    <link rel=\"stylesheet\" href=\"noindex/css/open-sans.css\" type=\"text/css\" />\n\n<style type=\"text/css\"><!--\t\t \n\nbody {\n  font-family: \"Open Sans\", Helvetica, sans-serif;\n  font-weight: 100;\n  color: #ccc;\n  background: rgba(10, 24, 55, 1);\n  font-size: 16px;\n}\n\nh2, h3, h4 {\n  font-weight: 200;\n}\n\nh2 {\n  font-size: 28px;\n}\n\n.jumbotron {\n  margin-bottom: 0;\n  color: #333;\n  background: rgb(212,212,221); /* Old browsers */\n  background: radial-gradient(ellipse at center top, rgba(255,255,255,1) 0%,rgba(174,174,183,1) 100%); /* W3C */\n}\n\n.jumbotron h1 {\n  font-size: 128px;\n  font-weight: 700;\n  color: white;\n  text-shadow: 0px 2px 0px #abc,\n               0px 4px 10px rgba(0,0,0,0.15),\n               0px 5px 2px rgba(0,0,0,0.1),\n               0px 6px 30px rgba(0,0,0,0.1);\n}\n\n.jumbotron p {\n  font-size: 28px;\n  font-weight: 100;\n}\n\n.main {\n   background: white;\n   color: #234;\n   border-top: 1px solid rgba(0,0,0,0.12);\n   padding-top: 30px;\n   padding-bottom: 40px;\n}\n\n.footer {\n   border-top: 1px solid rgba(255,255,255,0.2);\n   padding-top: 30px;\n}\n\n    --></style>\n</head>\n<body>\n  <div class=\"jumbotron text-center\">\n    <div class=\"container\">\n   \t  <h1>Testing 123..</h1>\n  \t\t<p class=\"lead\">This page is used to test the proper operation of the <a href=\"http://apache.org\">Apache HTTP server</a> after it has been installed. If you can read this page it means that this site is working properly. This server is powered by <a href=\"http://centos.org\">CentOS</a>.</p>\n\t\t</div>\n  </div>\n  <div class=\"main\">\n    <div class=\"container\">\n       <div class=\"row\">\n  \t\t\t<div class=\"col-sm-6\">\n    \t\t\t<h2>Just visiting?</h2>\n\t\t\t  \t\t<p class=\"lead\">The website you just visited is either experiencing problems or is undergoing routine maintenance.</p>\n  \t\t\t\t\t<p>If you would like to let the administrators of this website know that you've seen this page instead of the page you expected, you should send them e-mail. In general, mail sent to the name \"webmaster\" and directed to the website's domain should reach the appropriate person.</p>\n  \t\t\t\t\t<p>For example, if you experienced problems while visiting www.example.com, you should send e-mail to \"webmaster@example.com\".</p>\n\t  \t\t\t</div>\n  \t\t\t\t<div class=\"col-sm-6\">\n\t  \t\t\t\t<h2>Are you the Administrator?</h2>\n\t\t  \t\t\t<p>You should add your website content to the directory <tt>/var/www/html/</tt>.</p>\n\t\t  \t\t\t<p>To prevent this page from ever being used, follow the instructions in the file <tt>/etc/httpd/conf.d/welcome.conf</tt>.</p>\n\n\t  \t\t\t\t<h2>Promoting Apache and CentOS</h2>\n\t\t\t  \t\t<p>You are free to use the images below on Apache and CentOS Linux powered HTTP servers.  Thanks for using Apache and CentOS!</p>\n\t\t\t\t  \t<p><a href=\"http://httpd.apache.org/\"><img src=\"images/apache_pb.gif\" alt=\"[ Powered by Apache ]\"></a> <a href=\"http://www.centos.org/\"><img src=\"images/poweredby.png\" alt=\"[ Powered by CentOS Linux ]\" height=\"31\" width=\"88\"></a></p>\n  \t\t\t\t</div>\n\t  \t\t</div>\n\t    </div>\n\t\t</div>\n\t</div>\n\t  <div class=\"footer\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-6\">          \n            <h2>Important note:</h2>\n            <p class=\"lead\">The CentOS Project has nothing to do with this website or its content,\n            it just provides the software that makes the website run.</p>\n            \n            <p>If you have issues with the content of this site, contact the owner of the domain, not the CentOS project. \n            Unless you intended to visit CentOS.org, the CentOS Project does not have anything to do with this website,\n            the content or the lack of it.</p>\n            <p>For example, if this website is www.example.com, you would find the owner of the example.com domain at the following WHOIS server:</p>\n            <p><a href=\"http://www.internic.net/whois.html\">http://www.internic.net/whois.html</a></p>\n          </div>\n          <div class=\"col-sm-6\">\n            <h2>The CentOS Project</h2>\n            <p>The CentOS Linux distribution is a stable, predictable, manageable and reproduceable platform derived from \n               the sources of Red Hat Enterprise Linux (RHEL).<p>\n            \n            <p>Additionally to being a popular choice for web hosting, CentOS also provides a rich platform for open source communities to build upon. For more information\n               please visit the <a href=\"http://www.centos.org/\">CentOS website</a>.</p>\n          </div>\n        </div>\n\t\t  </div>\n    </div>\n  </div>\n</body></html>\n",
+        "dom" : {
+          "url" : "http://dev.example.com/",
+          "transitions" : [],
+          "cookies" : [],
+          "digest" : null,
+          "data_flow_sinks" : [],
+          "execution_flow_sinks" : []
+        }
+      },
+      "page" : {
+        "body" : "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>405 Method Not Allowed</title>\n</head><body>\n<h1>Method Not Allowed</h1>\n<p>The requested method PUT is not allowed for the URL /noindex/css/Arachni-d3d845771abb807bbb35cc5f988379d7.</p>\n</body></html>\n",
+        "dom" : {
+          "url" : "http://dev.example.com/noindex/css/Arachni-d3d845771abb807bbb35cc5f988379d7",
+          "transitions" : [],
+          "cookies" : [],
+          "digest" : null,
+          "data_flow_sinks" : [],
+          "execution_flow_sinks" : []
+        }
+      },
+      "remarks" : {},
+      "trusted" : true,
+      "digest" : 3643557619,
+      "response" : {
+        "headers" : {
+          "Date" : "Wed, 21 Aug 2019 18:29:39 GMT",
+          "Server" : "Apache/2.4.6 (CentOS)",
+          "X-Frame-Options" : "SAMEORIGIN",
+          "Allow" : "OPTIONS,GET,HEAD,POST,TRACE",
+          "Content-Length" : "273",
+          "Content-Type" : "text/html; charset=iso-8859-1"
+        },
+        "url" : "http://dev.example.com/noindex/css/Arachni-d3d845771abb807bbb35cc5f988379d7",
+        "code" : 405,
+        "ip_address" : "67.205.175.143",
+        "headers_string" : "HTTP/1.1 100 Continue\r\n\r\nHTTP/1.1 405 Method Not Allowed\r\nDate: Wed, 21 Aug 2019 18:29:39 GMT\r\nServer: Apache/2.4.6 (CentOS)\r\nX-Frame-Options: SAMEORIGIN\r\nAllow: OPTIONS,GET,HEAD,POST,TRACE\r\nContent-Length: 273\r\nContent-Type: text/html; charset=iso-8859-1\r\n\r\n",
+        "body" : "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>405 Method Not Allowed</title>\n</head><body>\n<h1>Method Not Allowed</h1>\n<p>The requested method PUT is not allowed for the URL /noindex/css/Arachni-d3d845771abb807bbb35cc5f988379d7.</p>\n</body></html>\n",
+        "time" : 1.125,
+        "app_time" : 1.0,
+        "total_time" : 1.125,
+        "return_code" : "ok",
+        "return_message" : "No error",
+        "status_line" : "HTTP/1.1 100 Continue"
+      },
+      "request" : {
+        "url" : "http://dev.example.com/noindex/css/Arachni-d3d845771abb807bbb35cc5f988379d7",
+        "parameters" : {},
+        "headers" : {
+          "Accept" : "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "User-Agent" : "Arachni/v1.5.1",
+          "Accept-Language" : "en-US,en;q=0.8,he;q=0.6",
+          "X-Arachni-Scan-Seed" : "d3d845771abb807bbb35cc5f988379d7"
+        },
+        "headers_string" : "PUT /noindex/css/Arachni-d3d845771abb807bbb35cc5f988379d7 HTTP/1.1\r\nHost: dev.example.com\r\nAccept-Encoding: gzip, deflate\r\nUser-Agent: Arachni/v1.5.1\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.8,he;q=0.6\r\nX-Arachni-Scan-Seed: d3d845771abb807bbb35cc5f988379d7\r\nContent-Length: 55\r\nExpect: 100-continue\r\n\r\n",
+        "effective_body" : "Created by Arachni. PUTd3d845771abb807bbb35cc5f988379d7",
+        "body" : "Created by Arachni. PUTd3d845771abb807bbb35cc5f988379d7",
+        "method" : "put"
+      }
+    },
+    {
+      "name" : "Interesting response",
+      "description" : "\nThe server responded with a non 200 (OK) nor 404 (Not Found) status code.\nThis is a non-issue, however exotic HTTP response status codes can provide useful\ninsights into the behavior of the web application and assist with the penetration test.\n",
+      "references" : {
+        "w3.org" : "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html"
+      },
+      "tags" : [
+        "interesting",
+        "response",
+        "server"
+      ],
+      "severity" : "informational",
+      "check" : {
+        "name" : "Interesting responses",
+        "description" : "Logs all non 200 (OK) server responses.",
+        "elements" : [
+          "server"
+        ],
+        "author" : "Tasos \"Zapotek\" Laskos <tasos.laskos@arachni-scanner.com>",
+        "version" : "0.2.1",
+        "max_issues" : 25,
+        "shortname" : "interesting_responses"
+      },
+      "vector" : {
+        "class" : "Arachni::Element::Server",
+        "type" : "server",
+        "url" : "http://dev.example.com/",
+        "affected_input_name" : null
+      },
+      "proof" : "HTTP/1.1 403 Forbidden",
+      "referring_page" : {
+        "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\"><html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n\t\t<title>Apache HTTP Server Test Page powered by CentOS</title>\n\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n\n    <!-- Bootstrap -->\n    <link href=\"/noindex/css/bootstrap.min.css\" rel=\"stylesheet\">\n    <link rel=\"stylesheet\" href=\"noindex/css/open-sans.css\" type=\"text/css\" />\n\n<style type=\"text/css\"><!--\t\t \n\nbody {\n  font-family: \"Open Sans\", Helvetica, sans-serif;\n  font-weight: 100;\n  color: #ccc;\n  background: rgba(10, 24, 55, 1);\n  font-size: 16px;\n}\n\nh2, h3, h4 {\n  font-weight: 200;\n}\n\nh2 {\n  font-size: 28px;\n}\n\n.jumbotron {\n  margin-bottom: 0;\n  color: #333;\n  background: rgb(212,212,221); /* Old browsers */\n  background: radial-gradient(ellipse at center top, rgba(255,255,255,1) 0%,rgba(174,174,183,1) 100%); /* W3C */\n}\n\n.jumbotron h1 {\n  font-size: 128px;\n  font-weight: 700;\n  color: white;\n  text-shadow: 0px 2px 0px #abc,\n               0px 4px 10px rgba(0,0,0,0.15),\n               0px 5px 2px rgba(0,0,0,0.1),\n               0px 6px 30px rgba(0,0,0,0.1);\n}\n\n.jumbotron p {\n  font-size: 28px;\n  font-weight: 100;\n}\n\n.main {\n   background: white;\n   color: #234;\n   border-top: 1px solid rgba(0,0,0,0.12);\n   padding-top: 30px;\n   padding-bottom: 40px;\n}\n\n.footer {\n   border-top: 1px solid rgba(255,255,255,0.2);\n   padding-top: 30px;\n}\n\n    --></style>\n</head>\n<body>\n  <div class=\"jumbotron text-center\">\n    <div class=\"container\">\n   \t  <h1>Testing 123..</h1>\n  \t\t<p class=\"lead\">This page is used to test the proper operation of the <a href=\"http://apache.org\">Apache HTTP server</a> after it has been installed. If you can read this page it means that this site is working properly. This server is powered by <a href=\"http://centos.org\">CentOS</a>.</p>\n\t\t</div>\n  </div>\n  <div class=\"main\">\n    <div class=\"container\">\n       <div class=\"row\">\n  \t\t\t<div class=\"col-sm-6\">\n    \t\t\t<h2>Just visiting?</h2>\n\t\t\t  \t\t<p class=\"lead\">The website you just visited is either experiencing problems or is undergoing routine maintenance.</p>\n  \t\t\t\t\t<p>If you would like to let the administrators of this website know that you've seen this page instead of the page you expected, you should send them e-mail. In general, mail sent to the name \"webmaster\" and directed to the website's domain should reach the appropriate person.</p>\n  \t\t\t\t\t<p>For example, if you experienced problems while visiting www.example.com, you should send e-mail to \"webmaster@example.com\".</p>\n\t  \t\t\t</div>\n  \t\t\t\t<div class=\"col-sm-6\">\n\t  \t\t\t\t<h2>Are you the Administrator?</h2>\n\t\t  \t\t\t<p>You should add your website content to the directory <tt>/var/www/html/</tt>.</p>\n\t\t  \t\t\t<p>To prevent this page from ever being used, follow the instructions in the file <tt>/etc/httpd/conf.d/welcome.conf</tt>.</p>\n\n\t  \t\t\t\t<h2>Promoting Apache and CentOS</h2>\n\t\t\t  \t\t<p>You are free to use the images below on Apache and CentOS Linux powered HTTP servers.  Thanks for using Apache and CentOS!</p>\n\t\t\t\t  \t<p><a href=\"http://httpd.apache.org/\"><img src=\"images/apache_pb.gif\" alt=\"[ Powered by Apache ]\"></a> <a href=\"http://www.centos.org/\"><img src=\"images/poweredby.png\" alt=\"[ Powered by CentOS Linux ]\" height=\"31\" width=\"88\"></a></p>\n  \t\t\t\t</div>\n\t  \t\t</div>\n\t    </div>\n\t\t</div>\n\t</div>\n\t  <div class=\"footer\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-6\">          \n            <h2>Important note:</h2>\n            <p class=\"lead\">The CentOS Project has nothing to do with this website or its content,\n            it just provides the software that makes the website run.</p>\n            \n            <p>If you have issues with the content of this site, contact the owner of the domain, not the CentOS project. \n            Unless you intended to visit CentOS.org, the CentOS Project does not have anything to do with this website,\n            the content or the lack of it.</p>\n            <p>For example, if this website is www.example.com, you would find the owner of the example.com domain at the following WHOIS server:</p>\n            <p><a href=\"http://www.internic.net/whois.html\">http://www.internic.net/whois.html</a></p>\n          </div>\n          <div class=\"col-sm-6\">\n            <h2>The CentOS Project</h2>\n            <p>The CentOS Linux distribution is a stable, predictable, manageable and reproduceable platform derived from \n               the sources of Red Hat Enterprise Linux (RHEL).<p>\n            \n            <p>Additionally to being a popular choice for web hosting, CentOS also provides a rich platform for open source communities to build upon. For more information\n               please visit the <a href=\"http://www.centos.org/\">CentOS website</a>.</p>\n          </div>\n        </div>\n\t\t  </div>\n    </div>\n  </div>\n</body></html>\n",
+        "dom" : {
+          "url" : "http://dev.example.com/",
+          "transitions" : [],
+          "cookies" : [],
+          "digest" : null,
+          "data_flow_sinks" : [],
+          "execution_flow_sinks" : []
+        }
+      },
+      "page" : {
+        "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\"><html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n\t\t<title>Apache HTTP Server Test Page powered by CentOS</title>\n\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n\n    <!-- Bootstrap -->\n    <link href=\"/noindex/css/bootstrap.min.css\" rel=\"stylesheet\">\n    <link rel=\"stylesheet\" href=\"noindex/css/open-sans.css\" type=\"text/css\" />\n\n<style type=\"text/css\"><!--\t\t \n\nbody {\n  font-family: \"Open Sans\", Helvetica, sans-serif;\n  font-weight: 100;\n  color: #ccc;\n  background: rgba(10, 24, 55, 1);\n  font-size: 16px;\n}\n\nh2, h3, h4 {\n  font-weight: 200;\n}\n\nh2 {\n  font-size: 28px;\n}\n\n.jumbotron {\n  margin-bottom: 0;\n  color: #333;\n  background: rgb(212,212,221); /* Old browsers */\n  background: radial-gradient(ellipse at center top, rgba(255,255,255,1) 0%,rgba(174,174,183,1) 100%); /* W3C */\n}\n\n.jumbotron h1 {\n  font-size: 128px;\n  font-weight: 700;\n  color: white;\n  text-shadow: 0px 2px 0px #abc,\n               0px 4px 10px rgba(0,0,0,0.15),\n               0px 5px 2px rgba(0,0,0,0.1),\n               0px 6px 30px rgba(0,0,0,0.1);\n}\n\n.jumbotron p {\n  font-size: 28px;\n  font-weight: 100;\n}\n\n.main {\n   background: white;\n   color: #234;\n   border-top: 1px solid rgba(0,0,0,0.12);\n   padding-top: 30px;\n   padding-bottom: 40px;\n}\n\n.footer {\n   border-top: 1px solid rgba(255,255,255,0.2);\n   padding-top: 30px;\n}\n\n    --></style>\n</head>\n<body>\n  <div class=\"jumbotron text-center\">\n    <div class=\"container\">\n   \t  <h1>Testing 123..</h1>\n  \t\t<p class=\"lead\">This page is used to test the proper operation of the <a href=\"http://apache.org\">Apache HTTP server</a> after it has been installed. If you can read this page it means that this site is working properly. This server is powered by <a href=\"http://centos.org\">CentOS</a>.</p>\n\t\t</div>\n  </div>\n  <div class=\"main\">\n    <div class=\"container\">\n       <div class=\"row\">\n  \t\t\t<div class=\"col-sm-6\">\n    \t\t\t<h2>Just visiting?</h2>\n\t\t\t  \t\t<p class=\"lead\">The website you just visited is either experiencing problems or is undergoing routine maintenance.</p>\n  \t\t\t\t\t<p>If you would like to let the administrators of this website know that you've seen this page instead of the page you expected, you should send them e-mail. In general, mail sent to the name \"webmaster\" and directed to the website's domain should reach the appropriate person.</p>\n  \t\t\t\t\t<p>For example, if you experienced problems while visiting www.example.com, you should send e-mail to \"webmaster@example.com\".</p>\n\t  \t\t\t</div>\n  \t\t\t\t<div class=\"col-sm-6\">\n\t  \t\t\t\t<h2>Are you the Administrator?</h2>\n\t\t  \t\t\t<p>You should add your website content to the directory <tt>/var/www/html/</tt>.</p>\n\t\t  \t\t\t<p>To prevent this page from ever being used, follow the instructions in the file <tt>/etc/httpd/conf.d/welcome.conf</tt>.</p>\n\n\t  \t\t\t\t<h2>Promoting Apache and CentOS</h2>\n\t\t\t  \t\t<p>You are free to use the images below on Apache and CentOS Linux powered HTTP servers.  Thanks for using Apache and CentOS!</p>\n\t\t\t\t  \t<p><a href=\"http://httpd.apache.org/\"><img src=\"images/apache_pb.gif\" alt=\"[ Powered by Apache ]\"></a> <a href=\"http://www.centos.org/\"><img src=\"images/poweredby.png\" alt=\"[ Powered by CentOS Linux ]\" height=\"31\" width=\"88\"></a></p>\n  \t\t\t\t</div>\n\t  \t\t</div>\n\t    </div>\n\t\t</div>\n\t</div>\n\t  <div class=\"footer\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-6\">          \n            <h2>Important note:</h2>\n            <p class=\"lead\">The CentOS Project has nothing to do with this website or its content,\n            it just provides the software that makes the website run.</p>\n            \n            <p>If you have issues with the content of this site, contact the owner of the domain, not the CentOS project. \n            Unless you intended to visit CentOS.org, the CentOS Project does not have anything to do with this website,\n            the content or the lack of it.</p>\n            <p>For example, if this website is www.example.com, you would find the owner of the example.com domain at the following WHOIS server:</p>\n            <p><a href=\"http://www.internic.net/whois.html\">http://www.internic.net/whois.html</a></p>\n          </div>\n          <div class=\"col-sm-6\">\n            <h2>The CentOS Project</h2>\n            <p>The CentOS Linux distribution is a stable, predictable, manageable and reproduceable platform derived from \n               the sources of Red Hat Enterprise Linux (RHEL).<p>\n            \n            <p>Additionally to being a popular choice for web hosting, CentOS also provides a rich platform for open source communities to build upon. For more information\n               please visit the <a href=\"http://www.centos.org/\">CentOS website</a>.</p>\n          </div>\n        </div>\n\t\t  </div>\n    </div>\n  </div>\n</body></html>\n",
+        "dom" : {
+          "url" : "http://dev.example.com/",
+          "transitions" : [],
+          "cookies" : [],
+          "digest" : null,
+          "data_flow_sinks" : [],
+          "execution_flow_sinks" : []
+        }
+      },
+      "remarks" : {},
+      "trusted" : true,
+      "digest" : 3367025238,
+      "response" : {
+        "headers" : {
+          "Date" : "Wed, 21 Aug 2019 18:29:22 GMT",
+          "Server" : "Apache/2.4.6 (CentOS)",
+          "X-Frame-Options" : "SAMEORIGIN",
+          "Last-Modified" : "Thu, 16 Oct 2014 13:20:58 GMT",
+          "Etag" : "\"1321-5058a1e728280\"",
+          "Accept-Ranges" : "bytes",
+          "Content-Length" : "4897",
+          "Content-Type" : "text/html; charset=UTF-8"
+        },
+        "url" : "http://dev.example.com/",
+        "code" : 403,
+        "ip_address" : "67.205.175.143",
+        "headers_string" : "HTTP/1.1 403 Forbidden\r\nDate: Wed, 21 Aug 2019 18:29:22 GMT\r\nServer: Apache/2.4.6 (CentOS)\r\nX-Frame-Options: SAMEORIGIN\r\nLast-Modified: Thu, 16 Oct 2014 13:20:58 GMT\r\nETag: \"1321-5058a1e728280\"\r\nAccept-Ranges: bytes\r\nContent-Length: 4897\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n",
+        "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\"><html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n\t\t<title>Apache HTTP Server Test Page powered by CentOS</title>\n\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n\n    <!-- Bootstrap -->\n    <link href=\"/noindex/css/bootstrap.min.css\" rel=\"stylesheet\">\n    <link rel=\"stylesheet\" href=\"noindex/css/open-sans.css\" type=\"text/css\" />\n\n<style type=\"text/css\"><!--\t\t \n\nbody {\n  font-family: \"Open Sans\", Helvetica, sans-serif;\n  font-weight: 100;\n  color: #ccc;\n  background: rgba(10, 24, 55, 1);\n  font-size: 16px;\n}\n\nh2, h3, h4 {\n  font-weight: 200;\n}\n\nh2 {\n  font-size: 28px;\n}\n\n.jumbotron {\n  margin-bottom: 0;\n  color: #333;\n  background: rgb(212,212,221); /* Old browsers */\n  background: radial-gradient(ellipse at center top, rgba(255,255,255,1) 0%,rgba(174,174,183,1) 100%); /* W3C */\n}\n\n.jumbotron h1 {\n  font-size: 128px;\n  font-weight: 700;\n  color: white;\n  text-shadow: 0px 2px 0px #abc,\n               0px 4px 10px rgba(0,0,0,0.15),\n               0px 5px 2px rgba(0,0,0,0.1),\n               0px 6px 30px rgba(0,0,0,0.1);\n}\n\n.jumbotron p {\n  font-size: 28px;\n  font-weight: 100;\n}\n\n.main {\n   background: white;\n   color: #234;\n   border-top: 1px solid rgba(0,0,0,0.12);\n   padding-top: 30px;\n   padding-bottom: 40px;\n}\n\n.footer {\n   border-top: 1px solid rgba(255,255,255,0.2);\n   padding-top: 30px;\n}\n\n    --></style>\n</head>\n<body>\n  <div class=\"jumbotron text-center\">\n    <div class=\"container\">\n   \t  <h1>Testing 123..</h1>\n  \t\t<p class=\"lead\">This page is used to test the proper operation of the <a href=\"http://apache.org\">Apache HTTP server</a> after it has been installed. If you can read this page it means that this site is working properly. This server is powered by <a href=\"http://centos.org\">CentOS</a>.</p>\n\t\t</div>\n  </div>\n  <div class=\"main\">\n    <div class=\"container\">\n       <div class=\"row\">\n  \t\t\t<div class=\"col-sm-6\">\n    \t\t\t<h2>Just visiting?</h2>\n\t\t\t  \t\t<p class=\"lead\">The website you just visited is either experiencing problems or is undergoing routine maintenance.</p>\n  \t\t\t\t\t<p>If you would like to let the administrators of this website know that you've seen this page instead of the page you expected, you should send them e-mail. In general, mail sent to the name \"webmaster\" and directed to the website's domain should reach the appropriate person.</p>\n  \t\t\t\t\t<p>For example, if you experienced problems while visiting www.example.com, you should send e-mail to \"webmaster@example.com\".</p>\n\t  \t\t\t</div>\n  \t\t\t\t<div class=\"col-sm-6\">\n\t  \t\t\t\t<h2>Are you the Administrator?</h2>\n\t\t  \t\t\t<p>You should add your website content to the directory <tt>/var/www/html/</tt>.</p>\n\t\t  \t\t\t<p>To prevent this page from ever being used, follow the instructions in the file <tt>/etc/httpd/conf.d/welcome.conf</tt>.</p>\n\n\t  \t\t\t\t<h2>Promoting Apache and CentOS</h2>\n\t\t\t  \t\t<p>You are free to use the images below on Apache and CentOS Linux powered HTTP servers.  Thanks for using Apache and CentOS!</p>\n\t\t\t\t  \t<p><a href=\"http://httpd.apache.org/\"><img src=\"images/apache_pb.gif\" alt=\"[ Powered by Apache ]\"></a> <a href=\"http://www.centos.org/\"><img src=\"images/poweredby.png\" alt=\"[ Powered by CentOS Linux ]\" height=\"31\" width=\"88\"></a></p>\n  \t\t\t\t</div>\n\t  \t\t</div>\n\t    </div>\n\t\t</div>\n\t</div>\n\t  <div class=\"footer\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-6\">          \n            <h2>Important note:</h2>\n            <p class=\"lead\">The CentOS Project has nothing to do with this website or its content,\n            it just provides the software that makes the website run.</p>\n            \n            <p>If you have issues with the content of this site, contact the owner of the domain, not the CentOS project. \n            Unless you intended to visit CentOS.org, the CentOS Project does not have anything to do with this website,\n            the content or the lack of it.</p>\n            <p>For example, if this website is www.example.com, you would find the owner of the example.com domain at the following WHOIS server:</p>\n            <p><a href=\"http://www.internic.net/whois.html\">http://www.internic.net/whois.html</a></p>\n          </div>\n          <div class=\"col-sm-6\">\n            <h2>The CentOS Project</h2>\n            <p>The CentOS Linux distribution is a stable, predictable, manageable and reproduceable platform derived from \n               the sources of Red Hat Enterprise Linux (RHEL).<p>\n            \n            <p>Additionally to being a popular choice for web hosting, CentOS also provides a rich platform for open source communities to build upon. For more information\n               please visit the <a href=\"http://www.centos.org/\">CentOS website</a>.</p>\n          </div>\n        </div>\n\t\t  </div>\n    </div>\n  </div>\n</body></html>\n",
+        "time" : 0.141,
+        "app_time" : 0.078,
+        "total_time" : 0.141,
+        "return_code" : "ok",
+        "return_message" : "No error",
+        "status_line" : "HTTP/1.1 403 Forbidden"
+      },
+      "request" : {
+        "url" : "http://dev.example.com/",
+        "parameters" : {},
+        "headers" : {
+          "Accept" : "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "User-Agent" : "Arachni/v1.5.1",
+          "Accept-Language" : "en-US,en;q=0.8,he;q=0.6",
+          "X-Arachni-Scan-Seed" : "d3d845771abb807bbb35cc5f988379d7",
+          "X-Forwarded-For" : "127.0.0.1",
+          "X-Originating-Ip" : "127.0.0.1",
+          "X-Remote-Ip" : "127.0.0.1",
+          "X-Remote-Addr" : "127.0.0.1"
+        },
+        "headers_string" : "GET / HTTP/1.1\r\nHost: dev.example.com\r\nAccept-Encoding: gzip, deflate\r\nUser-Agent: Arachni/v1.5.1\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.8,he;q=0.6\r\nX-Arachni-Scan-Seed: d3d845771abb807bbb35cc5f988379d7\r\nX-Forwarded-For: 127.0.0.1\r\nX-Originating-Ip: 127.0.0.1\r\nX-Remote-Ip: 127.0.0.1\r\nX-Remote-Addr: 127.0.0.1\r\n\r\n",
+        "effective_body" : null,
+        "body" : null,
+        "method" : "get"
+      }
+    },
+    {
+      "name" : "Allowed HTTP methods",
+      "description" : "\nThere are a number of HTTP methods that can be used on a webserver (`OPTIONS`,\n`HEAD`, `GET`, `POST`, `PUT`, `DELETE` etc.).  Each of these methods perform a\ndifferent function and each have an associated level of risk when their use is\npermitted on the webserver.\n\nA client can use the `OPTIONS` method within a request to query a server to\ndetermine which methods are allowed.\n\nCyber-criminals will almost always perform this simple test as it will give a\nvery quick indication of any high-risk methods being permitted by the server.\n\nArachni discovered that several methods are supported by the server.\n",
+      "references" : {
+        "Apache.org" : "http://httpd.apache.org/docs/2.2/mod/core.html#limitexcept"
+      },
+      "tags" : [
+        "http",
+        "methods",
+        "options"
+      ],
+      "severity" : "informational",
+      "check" : {
+        "name" : "Allowed methods",
+        "description" : "Checks for supported HTTP methods.",
+        "elements" : [
+          "server"
+        ],
+        "author" : "Tasos \"Zapotek\" Laskos <tasos.laskos@arachni-scanner.com>",
+        "version" : "0.2",
+        "shortname" : "allowed_methods"
+      },
+      "vector" : {
+        "class" : "Arachni::Element::Server",
+        "type" : "server",
+        "url" : "http://dev.example.com/",
+        "affected_input_name" : null
+      },
+      "proof" : "OPTIONS,GET,HEAD,POST,TRACE",
+      "referring_page" : {
+        "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\"><html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n\t\t<title>Apache HTTP Server Test Page powered by CentOS</title>\n\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n\n    <!-- Bootstrap -->\n    <link href=\"/noindex/css/bootstrap.min.css\" rel=\"stylesheet\">\n    <link rel=\"stylesheet\" href=\"noindex/css/open-sans.css\" type=\"text/css\" />\n\n<style type=\"text/css\"><!--\t\t \n\nbody {\n  font-family: \"Open Sans\", Helvetica, sans-serif;\n  font-weight: 100;\n  color: #ccc;\n  background: rgba(10, 24, 55, 1);\n  font-size: 16px;\n}\n\nh2, h3, h4 {\n  font-weight: 200;\n}\n\nh2 {\n  font-size: 28px;\n}\n\n.jumbotron {\n  margin-bottom: 0;\n  color: #333;\n  background: rgb(212,212,221); /* Old browsers */\n  background: radial-gradient(ellipse at center top, rgba(255,255,255,1) 0%,rgba(174,174,183,1) 100%); /* W3C */\n}\n\n.jumbotron h1 {\n  font-size: 128px;\n  font-weight: 700;\n  color: white;\n  text-shadow: 0px 2px 0px #abc,\n               0px 4px 10px rgba(0,0,0,0.15),\n               0px 5px 2px rgba(0,0,0,0.1),\n               0px 6px 30px rgba(0,0,0,0.1);\n}\n\n.jumbotron p {\n  font-size: 28px;\n  font-weight: 100;\n}\n\n.main {\n   background: white;\n   color: #234;\n   border-top: 1px solid rgba(0,0,0,0.12);\n   padding-top: 30px;\n   padding-bottom: 40px;\n}\n\n.footer {\n   border-top: 1px solid rgba(255,255,255,0.2);\n   padding-top: 30px;\n}\n\n    --></style>\n</head>\n<body>\n  <div class=\"jumbotron text-center\">\n    <div class=\"container\">\n   \t  <h1>Testing 123..</h1>\n  \t\t<p class=\"lead\">This page is used to test the proper operation of the <a href=\"http://apache.org\">Apache HTTP server</a> after it has been installed. If you can read this page it means that this site is working properly. This server is powered by <a href=\"http://centos.org\">CentOS</a>.</p>\n\t\t</div>\n  </div>\n  <div class=\"main\">\n    <div class=\"container\">\n       <div class=\"row\">\n  \t\t\t<div class=\"col-sm-6\">\n    \t\t\t<h2>Just visiting?</h2>\n\t\t\t  \t\t<p class=\"lead\">The website you just visited is either experiencing problems or is undergoing routine maintenance.</p>\n  \t\t\t\t\t<p>If you would like to let the administrators of this website know that you've seen this page instead of the page you expected, you should send them e-mail. In general, mail sent to the name \"webmaster\" and directed to the website's domain should reach the appropriate person.</p>\n  \t\t\t\t\t<p>For example, if you experienced problems while visiting www.example.com, you should send e-mail to \"webmaster@example.com\".</p>\n\t  \t\t\t</div>\n  \t\t\t\t<div class=\"col-sm-6\">\n\t  \t\t\t\t<h2>Are you the Administrator?</h2>\n\t\t  \t\t\t<p>You should add your website content to the directory <tt>/var/www/html/</tt>.</p>\n\t\t  \t\t\t<p>To prevent this page from ever being used, follow the instructions in the file <tt>/etc/httpd/conf.d/welcome.conf</tt>.</p>\n\n\t  \t\t\t\t<h2>Promoting Apache and CentOS</h2>\n\t\t\t  \t\t<p>You are free to use the images below on Apache and CentOS Linux powered HTTP servers.  Thanks for using Apache and CentOS!</p>\n\t\t\t\t  \t<p><a href=\"http://httpd.apache.org/\"><img src=\"images/apache_pb.gif\" alt=\"[ Powered by Apache ]\"></a> <a href=\"http://www.centos.org/\"><img src=\"images/poweredby.png\" alt=\"[ Powered by CentOS Linux ]\" height=\"31\" width=\"88\"></a></p>\n  \t\t\t\t</div>\n\t  \t\t</div>\n\t    </div>\n\t\t</div>\n\t</div>\n\t  <div class=\"footer\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-6\">          \n            <h2>Important note:</h2>\n            <p class=\"lead\">The CentOS Project has nothing to do with this website or its content,\n            it just provides the software that makes the website run.</p>\n            \n            <p>If you have issues with the content of this site, contact the owner of the domain, not the CentOS project. \n            Unless you intended to visit CentOS.org, the CentOS Project does not have anything to do with this website,\n            the content or the lack of it.</p>\n            <p>For example, if this website is www.example.com, you would find the owner of the example.com domain at the following WHOIS server:</p>\n            <p><a href=\"http://www.internic.net/whois.html\">http://www.internic.net/whois.html</a></p>\n          </div>\n          <div class=\"col-sm-6\">\n            <h2>The CentOS Project</h2>\n            <p>The CentOS Linux distribution is a stable, predictable, manageable and reproduceable platform derived from \n               the sources of Red Hat Enterprise Linux (RHEL).<p>\n            \n            <p>Additionally to being a popular choice for web hosting, CentOS also provides a rich platform for open source communities to build upon. For more information\n               please visit the <a href=\"http://www.centos.org/\">CentOS website</a>.</p>\n          </div>\n        </div>\n\t\t  </div>\n    </div>\n  </div>\n</body></html>\n",
+        "dom" : {
+          "url" : "http://dev.example.com/",
+          "transitions" : [],
+          "cookies" : [],
+          "digest" : null,
+          "data_flow_sinks" : [],
+          "execution_flow_sinks" : []
+        }
+      },
+      "page" : {
+        "body" : "",
+        "dom" : {
+          "url" : "http://dev.example.com/",
+          "transitions" : [],
+          "cookies" : [],
+          "digest" : null,
+          "data_flow_sinks" : [],
+          "execution_flow_sinks" : []
+        }
+      },
+      "remarks" : {},
+      "trusted" : true,
+      "digest" : 3836463147,
+      "remedy_guidance" : "\nIt is recommended that a whitelisting approach be taken to explicitly permit the\nHTTP methods required by the application and block all others.\n\nTypically the only HTTP methods required for most applications are `GET` and\n`POST`. All other methods perform actions that are rarely required or perform\nactions that are inherently risky.\n\nThese risky methods (such as `PUT`, `DELETE`, etc) should be protected by strict\nlimitations, such as ensuring that the channel is secure (SSL/TLS enabled) and\nonly authorised and trusted clients are permitted to use them.\n",
+      "response" : {
+        "headers" : {
+          "Date" : "Wed, 21 Aug 2019 18:29:22 GMT",
+          "Server" : "Apache/2.4.6 (CentOS)",
+          "X-Frame-Options" : "SAMEORIGIN",
+          "Allow" : "OPTIONS,GET,HEAD,POST,TRACE",
+          "Content-Length" : "0",
+          "Content-Type" : "httpd/unix-directory"
+        },
+        "url" : "http://dev.example.com/",
+        "code" : 200,
+        "ip_address" : "67.205.175.143",
+        "headers_string" : "HTTP/1.1 200 OK\r\nDate: Wed, 21 Aug 2019 18:29:22 GMT\r\nServer: Apache/2.4.6 (CentOS)\r\nX-Frame-Options: SAMEORIGIN\r\nAllow: OPTIONS,GET,HEAD,POST,TRACE\r\nContent-Length: 0\r\nContent-Type: httpd/unix-directory\r\n\r\n",
+        "body" : "",
+        "time" : 0.063,
+        "app_time" : 0.063,
+        "total_time" : 0.063,
+        "return_code" : "ok",
+        "return_message" : "No error"
+      },
+      "request" : {
+        "url" : "http://dev.example.com/",
+        "parameters" : {},
+        "headers" : {
+          "Accept" : "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "User-Agent" : "Arachni/v1.5.1",
+          "Accept-Language" : "en-US,en;q=0.8,he;q=0.6",
+          "X-Arachni-Scan-Seed" : "d3d845771abb807bbb35cc5f988379d7"
+        },
+        "headers_string" : "OPTIONS / HTTP/1.1\r\nHost: dev.example.com\r\nAccept-Encoding: gzip, deflate\r\nUser-Agent: Arachni/v1.5.1\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.8,he;q=0.6\r\nX-Arachni-Scan-Seed: d3d845771abb807bbb35cc5f988379d7\r\n\r\n",
+        "effective_body" : null,
+        "body" : null,
+        "method" : "options"
+      }
+    }
+  ],
+  "plugins" : {
+    "healthmap" : {
+      "name" : "Health map",
+      "description" : "Generates a simple list of safe/unsafe URLs.",
+      "author" : "Tasos \"Zapotek\" Laskos <tasos.laskos@arachni-scanner.com>",
+      "version" : "0.1.5",
+      "results" : {
+        "map" : [
+          {
+            "with_issues" : "http://dev.example.com/"
+          },
+          {
+            "with_issues" : "http://dev.example.com/Arachni-d3d845771abb807bbb35cc5f988379d7"
+          },
+          {
+            "with_issues" : "http://dev.example.com/noindex/css/Arachni-d3d845771abb807bbb35cc5f988379d7"
+          },
+          {
+            "without_issues" : "http://dev.example.com/noindex/css/bootstrap.min.css"
+          },
+          {
+            "without_issues" : "http://dev.example.com/noindex/css/open-sans.css"
+          }
+        ],
+        "total" : 5,
+        "without_issues" : 2,
+        "with_issues" : 3,
+        "issue_percentage" : 60
+      }
+    }
+  }
+}
