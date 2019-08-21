@@ -1,12 +1,26 @@
 #!/usr/bin/python3.7
 __author__ = "Nucleus Security"
 __license__ = "MIT License"
-__version__ = "0.0"
+__version__ = "0.1"
 
+# Used for parsing the xml whitesource file
 import xml.etree.ElementTree as ET
+#Used for writing to csv
 import csv
+# Used for arguments
 import argparse
-import sys
+# Used to post the whitesource file to Nucleus
+import requests
+
+
+# Enter in the root URL of your Nucleus instance.
+# Example https://nucleus-trial1.nucleussec.com
+NUCLEUS_ROOT_URL = "https://nucleus-dev.nucleussec.com"
+
+# Generate an API key through the Nucleus UI
+API_KEY = "{Enter your API key from Nucleus here}"
+
+
 
 def customParser(inputPath, outputPath):
 
@@ -102,6 +116,9 @@ def customParser(inputPath, outputPath):
 					# Reset the path for the next piece of the streamed xml file
 					path.pop()
 
+			# Get the csvfile to send to Nucleus
+			return csvfile
+
 		except Exception as e:
 
 			print("Error, probably bad xml document. Check that you are trying to parse the correct doc type")
@@ -110,11 +127,12 @@ def customParser(inputPath, outputPath):
 
 
 def get_args():
-	parser = argparse.ArgumentParser(description="For parsing whitesource files to be uploaded into Nucleus")
+	parser = argparse.ArgumentParser(description="For parsing whitesource files to be uploaded into Nucleus. If project ID is specified, will post the Nucleus supported file to Nucleus project.")
 
 	# List arguments. Should only include input file and output file
-	parser.add_argument('-i', dest='inputFile', help="Path to whitesource xml file to parse", required=True)
-	parser.add_argument('-o', dest='outputFile', help="Path to csv file output", required=True)
+	parser.add_argument('-i', '--inputfile', dest='inputFile', help="Path to whitesource xml file to parse", required=True)
+	parser.add_argument('-o', '--outputfile', dest='outputFile', help="Path to csv file output", required=True)
+	parser.add_argument('-#', '--project_id', dest="project_id", help="This is the project ID of the Nucleus project to which you want to post. If not specified, this script will only parse the whitesource file for manual upload.")
 
 	# Define the arguments globally for ease of use
 	global args
@@ -122,6 +140,27 @@ def get_args():
 	args = parser.parse_args()
 
 	return args
+
+# Send the file to Nucleus
+def post_to_nucleus(outputfile):
+
+	# Enter the ID of the project which you wish to post to here
+	PROJECT_ID = args.project_id
+
+	# open the file to send
+	with open(outputfile.name, 'rb') as f:
+
+		# Get the final Nucleus URL to post to
+		nucleus_url = str(NUCLEUS_ROOT_URL+'/nucleus/api/projects/'+PROJECT_ID+'/scans')
+
+		print("Posted to URL:", nucleus_url)
+
+		# Send file with proper header. Keep note of the project ID you need to send
+		file_upload = requests.post(nucleus_url, files={outputfile.name: f}, headers={'x-apikey': API_KEY})	
+
+		# Print the response from the server
+		print(file_upload.content)
+
 
 
 if __name__ == "__main__":
@@ -136,6 +175,17 @@ if __name__ == "__main__":
 	outputPath = arguments.outputFile
 
 	# Start the parsing and csv writing
-	customParser(inputPath, outputPath)
+	outputfile = customParser(inputPath, outputPath)
 
+	print(outputfile.name)
 
+	# If a project ID was specified, send the file to Nucleus
+	if arguments.project_id:
+
+		# Send the newly created csv file to Nucleus if project id was specified
+		post_to_nucleus(outputfile)
+
+	# If no project ID was specified, just parse file to Nucleus  format for manual file upload
+	else:
+
+		pass
