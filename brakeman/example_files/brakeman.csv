@@ -1,0 +1,53 @@
+BRAKEMAN REPORT,,,,
+,,,,
+Application Path,Report Generation Time,Checks Performed,Rails Version,
+/home/Documents/railsgoat,2019-08-22 15:30:58 -0400,"BasicAuth, BasicAuthTimingAttack, ContentTag, CookieSerialization, CreateWith, CrossSiteScripting, DefaultRoutes, Deserialize, DetailedExceptions, DigestDoS, DynamicFinders, EscapeFunction, Evaluation, Execute, FileAccess, FileDisclosure, FilterSkipping, ForgerySetting, HeaderDoS, I18nXSS, JRubyXML, JSONEncoding, JSONParsing, LinkTo, LinkToHref, MailTo, MassAssignment, MimeTypeDoS, ModelAttrAccessible, ModelAttributes, ModelSerialize, NestedAttributes, NestedAttributesBypass, NumberToCurrency, PermitAttributes, QuoteTableName, Redirect, RegexDoS, Render, RenderDoS, RenderInline, ResponseSplitting, RouteDoS, SQL, SQLCVEs, SSLVerify, SafeBufferManipulation, SanitizeMethods, SelectTag, SelectVulnerability, Send, SendFile, SessionManipulation, SessionSettings, SimpleFormat, SingleQuotes, SkipBeforeFilter, SprocketsPathTraversal, StripTags, SymbolDoSCVE, TranslateBug, UnsafeReflection, ValidationRegex, WithoutProtection, XMLDoS, YAMLParsing",5.1.7,
+,,,,
+SUMMARY,,,,
+Scanned/Reported,Total,,,
+Controllers,17,,,
+Models,12,,,
+Templates,27,,,
+Errors,0,,,
+Security Warnings,17 (13),,,
+,,,,
+Warning Type,Total,,,
+Command Injection,1,,,
+Cross-Site Request Forgery,1,,,
+Cross-Site Scripting,1,,,
+Dangerous Send,1,,,
+File Access,1,,,
+Format Validation,1,,,
+Mass Assignment,2,,,
+Remote Code Execution,4,,,
+SQL Injection,2,,,
+Session Setting,3,,,
+,,,,
+SECURITY WARNINGS,,,,
+Confidence,Class,Method,Warning Type,Message
+High,DashboardController,change_graph,Dangerous Send,User controlled method execution near line 16: self.try(+params[:graph]+)
+High,BenefitFormsController,download,File Access,"Parameter value used in file name near line 12: send_file(+params[:type].constantize.new(params[:name])+, :disposition => ""attachment"")"
+High,UsersController,user_params_without_password,Mass Assignment,"Potentially dangerous key allowed for mass assignment near line 55: params.require(:user).permit(:email, +:admin+, :first_name, :last_name)"
+High,Api::V1::MobileController,show,Remote Code Execution,Unsafe reflection method `constantize` called with parameter value near line 10: +params[:class].classify+.constantize
+High,Api::V1::MobileController,index,Remote Code Execution,Unsafe reflection method `constantize` called with parameter value near line 17: +params[:class].classify+.constantize
+High,BenefitFormsController,download,Remote Code Execution,Unsafe reflection method `constantize` called with parameter value near line 11: +params[:type]+.constantize
+High,UsersController,update,SQL Injection,"Possible SQL injection near line 29: User.where(""id = '#{+params[:user][:id]+}'"")"
+High,,,Session Setting,Session cookies should be set to HTTP only near line 4
+High,,,Session Setting,Session secret should not be included in version control near line 8
+High,,,Session Setting,Session secret should not be included in version control near line 9
+Medium,Benefits,Benefits.make_backup,Command Injection,"Possible command injection near line 15: system(""cp #{+full_file_name+} #{data_path}/bak#{Time.zone.now.to_i}_#{file.original_filename}"")"
+Medium,UsersController,user_params,Mass Assignment,Parameters should be whitelisted for mass assignment near line 50: params.require(:user).permit!
+Medium,PasswordResetsController,reset_password,Remote Code Execution,`Marshal.load` called with parameter value near line 6: Marshal.load(Base64.decode64(+params[:user]+))
+Medium,Analytics,hits_by_ip,SQL Injection,"Possible SQL injection near line 3: select(""#{+col+}"")"
+,,,,
+Controller Warnings,,,,
+Confidence,Controller,Warning Type,Message,
+High,ApplicationController,Cross-Site Request Forgery,`protect_from_forgery` should be called in `ApplicationController` near line 2,
+,,,,
+Model Warnings,,,,
+Confidence,Model,Warning Type,Message,
+High,User,Format Validation,Insufficient validation for `email` using `/.+@.+\..+/i`. Use `\A` and `\z` as anchors near line 13,
+,,,,
+Template Warnings,,,,
+Confidence,Template,Warning Type,Message,
+High,layouts/application (AdminController#dashboard),Cross-Site Scripting,Unescaped cookie value near line 12: cookies[:font],
