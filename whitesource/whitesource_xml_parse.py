@@ -14,8 +14,8 @@ import requests
 
 
 # Enter in the root URL of your Nucleus instance.
-# Example https://nucleus-trial1.nucleussec.com
-NUCLEUS_ROOT_URL = "https://nucleus-dev.nucleussec.com"
+# Example https://example.nucleussec.com
+NUCLEUS_ROOT_URL = "{Enter root URL of your Nucleus Instance here}"
 
 # Generate an API key through the Nucleus UI
 API_KEY = "{Enter your API key from Nucleus here}"
