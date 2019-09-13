@@ -1,4 +1,4 @@
-# communityScanningTools
+# NucleusPlugins
 This repo is for the community to contribute any custom parsers for scan tools which Nucleus does not yet support. We know that keeping up with all the new scanning tools out there is a collaborative process, and want to support as many tools as possible. 
  
 
