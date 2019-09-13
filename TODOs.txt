@@ -1,0 +1,8 @@
+List of tools we are planning to build support for/are looking for community plugins for:
+
+Nikto
+Contrast
+Anchore
+Vega
+WPscan
+bandit
