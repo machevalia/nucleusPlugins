@@ -123,7 +123,7 @@ def parse_json(outputPath, asset_info, vuln_data, scan_date):
             finding_details_dict = {}
 
             # Get the vulnerability name
-            finding_details_dict['finding_name'] = "Brakeman test failure: " + str(vuln['test_id']) + "-" + str(vuln["test_name"])
+            finding_details_dict['finding_name'] = "Bandit test failure: " + str(vuln['test_id']) + "-" + str(vuln["test_name"])
 
             # Get the finding path to the file which has this issue
             # Use this info for determining asset
