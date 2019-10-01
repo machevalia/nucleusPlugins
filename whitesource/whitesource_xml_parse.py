@@ -29,7 +29,7 @@ def customParser(inputPath, outputPath):
 
 		csvwriter = csv.writer(csvfile, delimiter=',')
 
-		csvwriter.writerow(['nucleus_import_version', 'host_name', 'scan_type', 'scan_tool', 'finding_type', 'finding_cve', 'finding_number', 'finding_name', 'finding_severity', 'finding_description', 'finding_solution', 'finding_output', 'finding_path', 'finding_result'])
+		csvwriter.writerow(['nucleus_import_version', 'host_name', 'scan_type', 'scan_tool', 'finding_type', 'finding_cve', 'finding_number', 'finding_name', 'finding_severity', 'finding_description', 'finding_recommendation', 'finding_output', 'finding_path', 'finding_result'])
 
 		# Used to verify paths and differentiate between two of the same tag
 		path = []
