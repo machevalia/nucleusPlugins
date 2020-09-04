@@ -164,9 +164,9 @@ def get_args():
 	parser = argparse.ArgumentParser(description="For parsing arachni files to be uploaded into Nucleus. If project ID is specified, will post the Nucleus supported file to Nucleus project.")
 
 	# List arguments. Should only include input file and output file
-	parser.add_argument('-i', '--inputfile', dest='inputFile', help="Path to whitesource xml file to parse", required=True)
-	parser.add_argument('-o', '--outputfile', dest='outputFile', help="Path to csv file output", required=True)
-	parser.add_argument('-#', '--project_id', dest="project_id", help="This is the project ID of the Nucleus project to which you want to post. If not specified, this script will only parse the whitesource file for manual upload.")
+	parser.add_argument('-i', '--inputfile', dest='inputFile', help="Path to arachni json file to parse", required=True)
+	parser.add_argument('-o', '--outputfile', dest='outputFile', help="Path to nucleus formatted json file output", required=True)
+	parser.add_argument('-#', '--project_id', dest="project_id", help="This is the project ID of the Nucleus project to which you want to post. If not specified, this script will only parse the arachni file for manual upload.")
 
 	# Define the arguments globally for ease of use
 	global args
