@@ -1,4 +1,4 @@
-#!/usr/bin/python3.7
+#!/usr/bin/python3
 
 ####### Script to download reports (JSON) from whitesource SAAS, transform them (CSV) and upload them to Nucleus SAAS ############
 
@@ -15,20 +15,20 @@ from pathlib import Path
 NUCLEUS_ROOT_URL = "https://XXXXXX.nucleussec.com"
 
 # retrieve this API_KEY from Nucleus GUI. Must be Admin.
-NUCLEUS_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXX"
+NUCLEUS_API_KEY = ""
 
 #retrieve this API_KEY (of the nucleus service user) in whitesource. Must have whitesource admin user.
-WHITESOURCE_NUCLEUS_USER_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"  
+WHITESOURCE_NUCLEUS_USER_API_KEY=""
 
 #project ID from the APPSEC project in Nucleus
-NUCLEUS_PROJECT_ID="XXXXXX"
+NUCLEUS_PROJECT_ID=""
 
-#products ID in whitesource
+# Product tokens in whitesource
 PRODUCTSTOKEN="""
 {
-    "PRODUCT1":"XXXXXXXXXXXXXX",
-    "PRODUCT2:"XXXXXXXXXX",
-    "PRODUCT3":"XXXXXXXXXXXX"
+    "product 1":"",
+    "product 2":"",
+    "product 3":""
 }
 """ 
 
@@ -50,7 +50,8 @@ def get_from_whitesource(productToken):
     "productToken" : productToken,
     "format" : "json"
     }
-    response=requests.post('https://saas.whitesourcesoftware.com/api/v1.2', json=json)
+    response=requests.post('https://app.whitesourcesoftware.com/api/v1.3', json=json)
+    # print(response.content)
     return response.content
 
 #need to convert JSON report from whitesource to CSV for Nucleus :/ 
@@ -59,9 +60,9 @@ def customParser(inputJsonString, outputPath):
     jsonObj = json.loads(inputJsonString)
 
     # For debug
-    #text_file=open(outputPath+".json","wb")
-    #text_file.write(inputJsonString)
-    #text_file.close()
+    # text_file=open(outputPath+".json","wb")
+    # text_file.write(inputJsonString)
+    # text_file.close()
      
     with open(outputPath, 'w', newline='') as csvfile:	
         csvwriter = csv.writer(csvfile, delimiter=',')
@@ -69,17 +70,25 @@ def customParser(inputJsonString, outputPath):
         try:
             for vulnerability in jsonObj["vulnerabilities"]:
                 csv_line = []
+                host_name = vulnerability["product"] + ": " + vulnerability["project"]
+                vulnName = vulnerability["name"]
                 severity = vulnerability["severity"]
                 vulnDescription = vulnerability["description"]
                 library = vulnerability["library"]["name"]
-                vulnName = vulnerability["name"]
+
                 if "topFix" not in vulnerability:
                     solutionDescription=""
                 else:
                     solutionDescription = vulnerability["topFix"]["fixResolution"]
-                host_name = vulnerability["product"]
+
+                if "library" not in vulnerability:
+                    finding_output = library
+                else:
+                    finding_output = json.dumps(vulnerability["library"])
+
                 finding_path=vulnerability["library"]["filename"]
-                csv_line = ['1', host_name, "Application", "WhiteSource", "Vuln", vulnName, vulnName+host_name,vulnName+": "+library, severity, vulnDescription, solutionDescription, library, finding_path, 'FAILED']
+
+                csv_line = ['1', host_name, "Application", "WhiteSource", "Vuln", vulnName, vulnName+host_name,vulnName+": "+library, severity, vulnDescription, solutionDescription, finding_output, finding_path, 'FAILED']
 				
                 if csv_line != []:
                     csvwriter.writerow(csv_line)
@@ -103,7 +112,6 @@ if __name__ == "__main__":
         inputJsonFile = get_from_whitesource(jsonProductsToken[product])
         time.sleep(5)
         #this path works only on linux. 
-        outputPath=str(Path.home())+"/"+product+".xls"
+        outputPath=str(Path.home())+"/"+product+".csv"
         outputfile = customParser(inputJsonFile, outputPath)
         post_to_nucleus(outputPath)
-         
