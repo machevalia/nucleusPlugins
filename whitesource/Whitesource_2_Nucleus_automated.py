@@ -12,23 +12,23 @@ import datetime
 from pathlib import Path
 
 # Enter in the root URL of your Nucleus instance.
-NUCLEUS_ROOT_URL = "https://XXXXXX.nucleussec.com"
+NUCLEUS_ROOT_URL = "https://XXXXXXXX.nucleussec.com"
 
 # retrieve this API_KEY from Nucleus GUI. Must be Admin.
 NUCLEUS_API_KEY = ""
 
-#retrieve this API_KEY (of the nucleus service user) in whitesource. Must have whitesource admin user.
-WHITESOURCE_NUCLEUS_USER_API_KEY=""
-
 #project ID from the APPSEC project in Nucleus
-NUCLEUS_PROJECT_ID=""
+NUCLEUS_PROJECT_ID = ""
+
+#retrieve this API_KEY (of the nucleus service user) in whitesource. Must have whitesource admin user.
+WHITESOURCE_USER_KEY = ""
+
 
 # Product tokens in whitesource
-PRODUCTSTOKEN="""
+WHITESOURCE_PRODUCT_TOKENS="""
 {
-    "product 1":"",
-    "product 2":"",
-    "product 3":""
+    "Product name 1":"",
+    "Product name 2":""
 }
 """ 
 
@@ -45,13 +45,17 @@ def post_to_nucleus(outputfile):
 
 def get_from_whitesource(productToken):     
     json = {
-    "requestType" : "getProductVulnerabilityReport",
-    "userKey": WHITESOURCE_NUCLEUS_USER_API_KEY,
-    "productToken" : productToken,
-    "format" : "json"
+	    "requestType" : "getProductVulnerabilityReport",
+	    "userKey": WHITESOURCE_USER_API_KEY,
+	    "productToken" : productToken,
+	    "format" : "json"
     }
+    # For debug
+    #print(json)
     response=requests.post('https://app.whitesourcesoftware.com/api/v1.3', json=json)
-    # print(response.content)
+
+    # For debug
+    print(response.content)
     return response.content
 
 #need to convert JSON report from whitesource to CSV for Nucleus :/ 
@@ -106,8 +110,9 @@ def customParser(inputJsonString, outputPath):
 
 if __name__ == "__main__":
     #get all reports
-    jsonProductsToken=json.loads(PRODUCTSTOKEN)
-    #loop over all report (=whitesource project)
+    jsonProductsToken = json.loads(WHITESOURCE_PRODUCT_TOKENS)
+
+    #loop over all reports (=whitesource project)
     for product in jsonProductsToken:
         inputJsonFile = get_from_whitesource(jsonProductsToken[product])
         time.sleep(5)
