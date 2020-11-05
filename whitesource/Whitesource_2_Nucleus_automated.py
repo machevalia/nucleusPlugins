@@ -46,7 +46,7 @@ def post_to_nucleus(outputfile):
 def get_from_whitesource(productToken):     
     json = {
 	    "requestType" : "getProductVulnerabilityReport",
-	    "userKey": WHITESOURCE_USER_API_KEY,
+	    "userKey": WHITESOURCE_USER_KEY,
 	    "productToken" : productToken,
 	    "format" : "json"
     }
