@@ -38,6 +38,7 @@ def customParser(inputPath, outputPath):
 
 				next(findings)
 
+				# Going to be used to check for duplicates in the input file
 				csv_dupe_array = []
 
 				for finding in findings:
@@ -47,6 +48,7 @@ def customParser(inputPath, outputPath):
 					# Get the line ready to write to output file
 					csv_line = []
 
+					# Grab the values we need
 					try:
 
 						severity = finding[11]
@@ -63,6 +65,7 @@ def customParser(inputPath, outputPath):
 
 						finding_output = finding[7]
 
+						# Used to add a link to the description field in Nucleus and pretty display
 						description = finding[9] + "\n\n <a href='" + finding[18] + "target="'_blank'">" + finding[18] + "</a>"
 
 						scan_date = finding[12]
@@ -83,6 +86,7 @@ def customParser(inputPath, outputPath):
 
 						asset_domain = finding[6]
 
+						# Used to check for duplicates. Alter this if you want to change how Nucleus tracks instances of vulns
 						fjk = asset_name + finding_number
 
 					except Exception as e:
@@ -93,6 +97,7 @@ def customParser(inputPath, outputPath):
 
 					#print(csv_line)
 
+					# Use this to deduplicate the findings from crowdstrike which are the same for some reason
 					if fjk in csv_dupe_array:
 
 						pass
