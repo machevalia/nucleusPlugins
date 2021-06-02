@@ -10,6 +10,7 @@ import argparse
 # Used to post the file to Nucleus
 import requests
 import re 
+import ipaddress
 
 # Enter in the root URL of your Nucleus instance WITHOUT the trailing slash.
 # Example https://example.nucleussec.com
@@ -25,26 +26,16 @@ def customParser(inputPath, outputPath, adjustSeverity):
 		with open(outputPath, 'w', newline='') as csvfile:
 
 			csvwriter = csv.writer(csvfile, delimiter=',')
-
-			#TODO: modularize/object orient the regex IP matching. Currently used 3 times inline
-			# Set up regex for IP address matching later in this function
-			simple_ip_regex = "^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$"
-
 			csvwriter.writerow(['nucleus_import_version', 'host_name', 'ip_address', 'scan_type', 'scan_tool', 'finding_type', 'finding_cve', 'finding_number', 'finding_output', 'finding_name', 'finding_severity', 'finding_description', 'finding_recommendation', 'scan_date', 'finding_result', 'finding_references','finding_exploitable', 'operating_system_name', 'host_location', 'finding_port'])
 
 			# Start parsing the data. 
-
 			findings = csv.reader(input_file, delimiter=',')
-
-			#print(findings)
 
 			# Skip the first line headers
 			next(findings)
 
 			# Read each line of the csv input file for parsing
 			for finding in findings:
-
-				#print(finding)
 
 				# Get the line ready to write to output file
 				csv_line = []
@@ -92,8 +83,9 @@ def customParser(inputPath, outputPath, adjustSeverity):
 					finding_output = finding[8].replace("'","")
 					description = finding[9].replace("'","") + "\n\n" + finding_output + "\n\n <a href='" + finding[17] + "' target="'_blank'">" + finding[17] + "</a>" 
 					scan_date = finding[4].replace(" UTC", '')
-					solution = finding[12].replace("'","")
-					references = "Reporter:" + finding[18] + "," + "Researcher URL:" + finding[19]
+					solution = finding[12].replace("'","").strip("-")
+					#Needs to be comma separated string in double quotes
+					references = '"Reporter:' + finding[18] + ',' + 'Researcher URL:' + finding[19] + '"'
 
 					#print(finding_name, finding_output, description, scan_date, solution, references)
 
@@ -120,8 +112,6 @@ def customParser(inputPath, outputPath, adjustSeverity):
 					
 					assets_list = finding[5].replace("'","").split(",")
 
-					#print(assets_list)
-
 				if assets_list != []:
 				
 					try:
@@ -139,26 +129,37 @@ def customParser(inputPath, outputPath, adjustSeverity):
 
 								# Check to see if it has a port associated with it
 								# Grab the ip address for validation
-								asset_ip = asset.split(":")[0]
+								if ":" in asset:
+									#Split on the port colon
+									asset_ip_raw = asset.split(":")[0]
 
-								# Grab the port info for the csv file
-								finding_port = asset.split(":")[-1]
+									# Grab the port info
+									finding_port = asset.split(":")[-1]
 
-								# Run finding_port through the IP regex above to determine if it is a valid port or not
-								if re.search(simple_ip_regex, finding_port):
+									# Asset name is constant minus the port if port exists
+									asset_name = asset.replace(":" + finding_port, '')
 
-									# if it is a valid IP, then we should ignore the finding_port because split was not successful
-									finding_port = ''
-
-								# If port is not a valid IP, then map the port value to the finding_port field
+								# No port, set to blank
 								else:
 
-									finding_port = finding_port
+									finding_port = ''
 
-								# Asset name is constant minus the port if port exists
-								asset_name = asset.replace(":" + finding_port, '')
+									# In this case, the raw ip is the asset
+									asset_ip_raw = asset
 
-								check_for_ip = asset_ip
+									asset_name = asset
+
+								# Check the asset name itself to determine if the ip address is an IP or a random DNS name
+								try:
+									check_for_ip = ipaddress.ip_address(asset_ip_raw)
+
+									# Is valid IP, set to valid IP value
+									asset_ip = check_for_ip
+
+								# It is not an IP
+								except Exception as e:
+									# No IP should be defined
+									asset_ip = ''
 
 							# There was http or https:, start testing to see if it is an application
 							#NOTE: cannot skip the regex because there can be random values in this field that are neither http based or IP based
@@ -167,35 +168,32 @@ def customParser(inputPath, outputPath, adjustSeverity):
 								# Grab the string after the http method in order to validate if it's an IP
 								ip_port = asset.split("://")[-1]
 
-								#print(ip_port)
+								# If there is a colon to denote port
+								if ":" in ip_port:
 
-								# Grab the ip address for validation
-								check_for_ip = ip_port.split(":")[0]
+									# Grab the ip address for validation
+									check_for_ip = ip_port.split(":")[0].strip('/')
 
-								# Grab the port info for the csv file
-								finding_port_raw = ip_port.split(":")[-1]
+									# Grab the port info for the csv file
+									finding_port_raw = ip_port.split(":")[-1]
 
-								finding_port = finding_port_raw.replace('/', '')
+									# Strip away bad values out of the port
+									finding_port = finding_port_raw.replace('/', '')
 
-								# Run through the basic IP regex above to determine if the finding port is an IP or not
-								if re.search(simple_ip_regex, finding_port):
+									# No matter what happens, the asset name will remain the full asset name string minus the port
+									asset_name = asset.replace(":" + finding_port_raw, '')
 
-									#print("port is an IP: ", finding_port)
-
-									# if it is a valid IP, then we should set the IP address on the asset record
-									finding_port = ''
-
-								# If it is not a valid IP, then return the port correctly to the finding_port field
 								else:
 
-									finding_port = finding_port
+									check_for_ip = ip_port
 
-									#print(check_for_ip, finding_port)
+									finding_port = ''
 
-								# Run the IP through the basic regex above to check if that is an IP
-								if re.search(simple_ip_regex, check_for_ip):
+									asset_name = asset
 
-									#print("Asset is an IP: ", check_for_ip)
+								# Run through the basic IP check  to determine if the asset is an IP or not
+								try:
+									ip = ipaddress.ip_address(check_for_ip)
 
 									# If it returned a valid IP through the regex, then mark it as a host asset
 									asset_type = "Host"
@@ -203,18 +201,12 @@ def customParser(inputPath, outputPath, adjustSeverity):
 									# if it is a valid IP, then we should set the IP address on the asset record
 									asset_ip = check_for_ip
 
-								# If it is not a valid IP, then return it was an application url type asset
-								else:
-
-									#print(asset)
+								except:
 
 									# Set asset fields to App defaults in this situation
 									asset_type = "Application"
 									asset_ip = ''
 									finding_port = ''
-
-								# No matter what happens, the asset name will remain the full asset name string minus the port
-								asset_name = asset.replace(":" + finding_port_raw, '')
 
 							# Handle attached file host list (add to general asset)
 							if asset_name == "see attached file with affected hosts.":
