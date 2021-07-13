@@ -1,0 +1,9 @@
+name: nucleus-plugin
+
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+      - requests
+      - numpy
+      - pandas
