@@ -22,7 +22,7 @@ API_KEY = "{Enter your API key from Nucleus here}"
 
 def customParser(inputPath, outputPath):
 
-	with open(inputPath, 'r', newline='') as input_file:
+	with open(inputPath, 'r', newline='', encoding='utf-8') as input_file:
 
 		# Create the csv file for writing
 		with open(outputPath, 'w', newline='') as csvfile:
